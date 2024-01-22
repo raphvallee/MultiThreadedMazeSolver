@@ -7,9 +7,20 @@ public static class Utils
     public static readonly string[] MovePriority = ["r", "d", "l", "u"];
     public static readonly string[] OppositeDirections = ["l", "u", "r", "d"];
 
-    public static string ToBase64(string content)
+    private static string ToBase64(string content)
     {
         var plainTextBytes = Encoding.UTF8.GetBytes(content);
         return Convert.ToBase64String(plainTextBytes);
+    }
+
+    public static void SetPathCookie(HttpClient httpClient, string value)
+    {
+        httpClient.DefaultRequestHeaders.Clear();
+        httpClient.DefaultRequestHeaders.Add("Cookie", "path=" + ToBase64(value));
+    }
+
+    public static long GetContentLength(HttpResponseMessage responseMessage)
+    {
+        return responseMessage.Content.Headers.ContentLength.GetValueOrDefault();
     }
 }
