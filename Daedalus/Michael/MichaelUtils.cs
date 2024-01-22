@@ -13,11 +13,11 @@ public static class MichaelUtils
         return Convert.ToBase64String(plainTextBytes);
     }
 
-    public static async Task<HttpResponseMessage> SetPathCookie(HttpClient httpClient, string value)
+    public static HttpResponseMessage SetPathCookie(HttpClient httpClient, string value)
     {
         httpClient.DefaultRequestHeaders.Clear();
         httpClient.DefaultRequestHeaders.Add("Cookie", "path=" + ToBase64(value));
-        return await httpClient.GetAsync("");
+        return httpClient.GetAsync("").Result;
     }
 
     public static long GetContentLength(HttpResponseMessage responseMessage)
