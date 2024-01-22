@@ -1,1 +1,1 @@
-﻿Michael.Michael.RunMichael();
+﻿Michael.Michael michael = new Michael.Michael();

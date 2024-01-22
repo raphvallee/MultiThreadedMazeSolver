@@ -2,7 +2,7 @@
 
 namespace Michael;
 
-public static class Utils
+public static class MichaelUtils
 {
     public static readonly string[] MovePriority = ["r", "d", "l", "u"];
     public static readonly string[] OppositeDirections = ["l", "u", "r", "d"];
@@ -13,10 +13,11 @@ public static class Utils
         return Convert.ToBase64String(plainTextBytes);
     }
 
-    public static void SetPathCookie(HttpClient httpClient, string value)
+    public static async Task<HttpResponseMessage> SetPathCookie(HttpClient httpClient, string value)
     {
         httpClient.DefaultRequestHeaders.Clear();
         httpClient.DefaultRequestHeaders.Add("Cookie", "path=" + ToBase64(value));
+        return await httpClient.GetAsync("");
     }
 
     public static long GetContentLength(HttpResponseMessage responseMessage)
