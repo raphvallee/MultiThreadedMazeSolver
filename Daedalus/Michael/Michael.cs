@@ -29,27 +29,19 @@ public class Michael
 
     private int Move(string path)
     {
-        try
+        Console.WriteLine(path);
+            
+        _responseMessage = MichaelUtils.SetPathCookie(_httpClient, path);
+            
+        var messageLength = MichaelUtils.GetContentLength(_responseMessage);
+            
+        return messageLength switch
         {
-            Console.WriteLine(path);
-            
-            _responseMessage = MichaelUtils.SetPathCookie(_httpClient, path);
-            
-            var messageLength = MichaelUtils.GetContentLength(_responseMessage);
-            
-            return messageLength switch
-            {
-                1786 => 0,
-                1800 => 1,
-                5379 => Move(path),
-                _ => FoundSolution()
-            };
-        }
-        catch (IOException exception)
-        {
-            Console.WriteLine(exception.Message);
-            return -1;
-        }
+            1786 => 0,
+            1800 => 1,
+            5379 => Move(path),
+            _ => FoundSolution()
+        };
     }
 
     private int FoundSolution()

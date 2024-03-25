@@ -4,8 +4,8 @@ namespace Michael;
 
 public static class MichaelUtils
 {
-    public static readonly string[] MovePriority = ["r", "d", "l", "u"];
-    public static readonly string[] OppositeDirections = ["l", "u", "r", "d"];
+    public static readonly string[] MovePriority = { "r", "d", "l", "u" };
+    public static readonly string[] OppositeDirections = { "l", "u", "r", "d" };
 
     private static string ToBase64(string content)
     {
