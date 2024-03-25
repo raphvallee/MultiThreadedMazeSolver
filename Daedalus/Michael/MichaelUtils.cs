@@ -17,6 +17,11 @@ public static class MichaelUtils
     {
         httpClient.DefaultRequestHeaders.Clear();
         httpClient.DefaultRequestHeaders.Add("Cookie", "path=" + ToBase64(value));
+        return MakeRequest(httpClient);
+    }
+
+    private static HttpResponseMessage MakeRequest(HttpClient httpClient)
+    {
         return httpClient.GetAsync("").Result;
     }
 

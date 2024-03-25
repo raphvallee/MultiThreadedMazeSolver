@@ -19,27 +19,25 @@ public class Michael
 
     private void RunMichael(string path)
     {
-        for (int i = 0; i < 4; i++) {
-            string s = MichaelUtils.MovePriority[i];
-            if (!path.EndsWith(MichaelUtils.OppositeDirections[i]) && Move(path + s) == 1) {
-                RunMichael(path + s + s);
+        for (var i = 0; i < 4; i++)
+            if (!path.EndsWith(MichaelUtils.OppositeDirections[i]))
+            {
+                var moveDirection = MichaelUtils.MovePriority[i];
+                var currentMove = path + moveDirection;
+                if (Move(currentMove) == 1) RunMichael(currentMove + moveDirection);
             }
-        }
     }
 
     private int Move(string path)
     {
-        Console.WriteLine(path);
-            
         _responseMessage = MichaelUtils.SetPathCookie(_httpClient, path);
-            
+
         var messageLength = MichaelUtils.GetContentLength(_responseMessage);
-            
+
         return messageLength switch
         {
             1786 => 0,
             1800 => 1,
-            5379 => Move(path),
             _ => FoundSolution()
         };
     }
