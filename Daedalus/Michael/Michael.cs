@@ -10,7 +10,7 @@ public class Michael
 
     public Michael()
     {
-        _httpClient = new HttpClient { BaseAddress = new Uri("https://ctf.ageei.org/daedalusv3105/move") };
+        _httpClient = new HttpClient { BaseAddress = new Uri("https://daedalus.defi.info.cegepmontpetit.ca/move") };
         _stopwatch = Stopwatch.StartNew();
 
         _responseMessage = MichaelUtils.SetPathCookie(_httpClient, "");
@@ -36,8 +36,8 @@ public class Michael
 
         return messageLength switch
         {
-            1786 => 0,
-            1800 => 1,
+            1730 => 0,
+            1744 => 1,
             _ => FoundSolution()
         };
     }
