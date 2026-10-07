@@ -8,12 +8,10 @@ public partial class Michael
 {
     private readonly HttpClient _httpClient;
     private readonly Stopwatch _stopwatch;
-    private readonly StringBuilder _stringBuilder;
     private HttpResponseMessage _responseMessage;
 
     public Michael()
     {
-        _stringBuilder = new StringBuilder();
         _httpClient = new HttpClient { BaseAddress = new Uri("http://127.0.0.1:8173/move") };
         _stopwatch = Stopwatch.StartNew();
 
