@@ -1,0 +1,21 @@
+# Build artifacts
+/target
+
+# Cargo lockfile (uncomment if this is a library, keep for binaries/workspaces)
+# Cargo.lock
+
+# IDE
+/.idea/
+
+# Tooling caches
+/.ruff_cache/
+/.playwright-mcp/
+
+# Environment / secrets
+.env
+.env.*
+
+# OS junk
+Thumbs.db
+Desktop.ini
+.DS_Store

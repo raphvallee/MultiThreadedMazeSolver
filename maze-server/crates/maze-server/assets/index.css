@@ -1,0 +1,73 @@
+html, body {
+    margin: 0;
+    height: 100%;
+}
+
+a {
+    cursor: pointer;
+}
+
+.rangee {
+    height: 100%;
+}
+
+.left-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding: 90px !important;
+}
+
+.title {
+    text-align: center;
+}
+
+.message {
+    text-align: center;
+}
+
+.arrows {
+    display: flex;
+    flex-direction: column;
+    align-content: stretch;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.arrow-container {
+    width: 220px;
+}
+
+.arrow-container p {
+    margin-bottom: 0;
+}
+
+.up-arrow, .down-arrow {
+    text-align: center;
+}
+
+.middle-arrows {
+    display: flex;
+    justify-content: space-between;
+}
+
+.icon {
+    font-size: 50px;
+}
+
+.lost-btn {
+    margin-top: 10px;
+}
+
+.right-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.img {
+    display: block;
+    background-size: cover;
+    max-height: 100vh;
+    width: 85%;
+}
