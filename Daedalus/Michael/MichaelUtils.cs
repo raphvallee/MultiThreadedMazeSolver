@@ -1,11 +1,13 @@
-﻿using System.Text;
+﻿using System.Buffers.Text;
+using System.Text;
 
 namespace Michael;
 
 public static class MichaelUtils
 {
     public static readonly string[] MovePriority = ["r", "d", "l", "u"];
-    public static readonly string[] OppositeDirections = ["l", "u", "r", "d"];
+    public static readonly char[] OppositeDirections = ['l', 'u', 'r', 'd'];
+    private const string EmptyString = "";
 
     private static string ToBase64(string content)
     {
@@ -13,7 +15,7 @@ public static class MichaelUtils
         return Convert.ToBase64String(plainTextBytes);
     }
 
-    public static HttpResponseMessage SetPathCookie(HttpClient httpClient, string value)
+    public static HttpResponseMessage MakeRequestWithCookie(HttpClient httpClient, string value)
     {
         httpClient.DefaultRequestHeaders.Clear();
         httpClient.DefaultRequestHeaders.Add("Cookie", "path=" + ToBase64(value));
@@ -22,11 +24,17 @@ public static class MichaelUtils
 
     private static HttpResponseMessage MakeRequest(HttpClient httpClient)
     {
-        return httpClient.GetAsync("").Result;
+        return httpClient.GetAsync(EmptyString).Result;
     }
 
     public static long GetContentLength(HttpResponseMessage responseMessage)
     {
         return responseMessage.Content.Headers.ContentLength.GetValueOrDefault();
+    }
+
+    public static bool EndsWithChar(string current, char c)
+    {
+        if (current.Length == 0) return false;
+        return current[^1] == c;
     }
 }

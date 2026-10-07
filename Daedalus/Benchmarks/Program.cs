@@ -1,13 +1,15 @@
-﻿// See https://aka.ms/new-console-template for more information
-
+﻿using BenchmarkDotNet.Configs;
+using BenchmarkDotNet.Exporters.Csv;
 using BenchmarkDotNet.Running;
 
 namespace Benchmarks;
 
 internal static class Program
 {
-    public static void Main(string[] args)
+    public static void Main()
     {
-        var summary = BenchmarkRunner.Run<Benchmark>();
+        var config = ManualConfig.CreateMinimumViable();
+
+        BenchmarkRunner.Run<Benchmark>(config);
     }
 }
