@@ -17,7 +17,7 @@ public static class MichaelUtils
     {
         // TODO find faster way to set cookie
         httpClient.DefaultRequestHeaders.Clear();
-        httpClient.DefaultRequestHeaders.Add("Cookie", "path=" + ToBase64(value));
+        httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Cookie", "path=" + ToBase64(value));
         return MakeRequest(httpClient);
     }
 
