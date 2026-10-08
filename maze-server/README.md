@@ -51,6 +51,14 @@ Endpoints, exactly like the original site:
   cell), flag page on the exit
 - `GET /static/...` - the seven embedded assets the pages reference
   (css, js, tiresias.jpg, progress.png, bonk.jpeg, success.png, nice.jpg)
+- `GET /maze` - local addition, not on the original site: the full maze as
+  SVG with route overlays and a legend. Red: the A* optimal start->exit
+  path. Purple dashed: the A* minotaur route. Teal dashed: the both-flags
+  plan's exit run when it beats the direct route. The legend states the
+  move counts, including the least-moves two-walk plan that collects both
+  the minotaur encounter and the flag: `shortest_path_to_minotaur()`, then
+  the cheaper of the direct A* path and the minotaur walk extended to the
+  exit (`both_flags_plan()` in `maze-core/src/solve.rs`).
 
 There is no `/reset` (the site 404s it): restarting is `GET /`, which is
 what the "Je me suis perdu :(" button links to. Site semantics, verified

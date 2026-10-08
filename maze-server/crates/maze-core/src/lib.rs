@@ -40,6 +40,6 @@ pub mod solve;
 pub use base64::{decode_into, decoded_len, encode_into, encoded_len, Base64Error};
 pub use maze::{
     cell_at, cell_char, dir_from_char, replay, replay_end, step, trace, Outcome, Trace, EXIT, H,
-    MAX_COOKIE_LEN, MAX_PATH_LEN, START, W,
+    MAX_COOKIE_LEN, MAX_PATH_LEN, MINOTAUR, START, W,
 };
-pub use solve::shortest_path;
+pub use solve::{both_flags_plan, shortest_path, shortest_path_to_minotaur, BothFlagsPlan};
