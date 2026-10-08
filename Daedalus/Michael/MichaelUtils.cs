@@ -4,9 +4,8 @@ namespace Michael;
 
 public static class MichaelUtils
 {
-    public static readonly string[] MovePriority = ["r", "d", "l", "u"];
+    public static readonly char[] MovePriority = ['r', 'd', 'l', 'u'];
     public static readonly char[] OppositeDirections = ['l', 'u', 'r', 'd'];
-    private const string EmptyString = "";
 
     private static string ToBase64(string content)
     {
@@ -16,6 +15,7 @@ public static class MichaelUtils
 
     public static HttpResponseMessage MakeRequestWithCookie(HttpClient httpClient, string value)
     {
+        // TODO find faster way to set cookie
         httpClient.DefaultRequestHeaders.Clear();
         httpClient.DefaultRequestHeaders.Add("Cookie", "path=" + ToBase64(value));
         return MakeRequest(httpClient);
@@ -23,17 +23,11 @@ public static class MichaelUtils
 
     private static HttpResponseMessage MakeRequest(HttpClient httpClient)
     {
-        return httpClient.GetAsync(EmptyString).Result;
+        return httpClient.GetAsync("").Result;
     }
 
     public static long GetContentLength(HttpResponseMessage responseMessage)
     {
         return responseMessage.Content.Headers.ContentLength.GetValueOrDefault();
-    }
-
-    public static bool EndsWithChar(string current, char c)
-    {
-        if (current.Length == 0) return false;
-        return current[^1] == c;
     }
 }

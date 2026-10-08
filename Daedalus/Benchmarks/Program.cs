@@ -1,15 +1,14 @@
-﻿using BenchmarkDotNet.Configs;
-using BenchmarkDotNet.Exporters.Csv;
+﻿using BenchmarkDotNet.Columns;
+using BenchmarkDotNet.Configs;
 using BenchmarkDotNet.Running;
 
 namespace Benchmarks;
 
-internal static class Program
+public class Program
 {
-    public static void Main()
+    public static void Main(string[] args)
     {
-        var config = ManualConfig.CreateMinimumViable();
-
-        BenchmarkRunner.Run<Benchmark>(config);
+        var config = DefaultConfig.Instance.AddColumnProvider(DefaultColumnProviders.Instance);
+        var summaries = BenchmarkSwitcher.FromAssembly(typeof(Program).Assembly).Run(args, config);
     }
 }

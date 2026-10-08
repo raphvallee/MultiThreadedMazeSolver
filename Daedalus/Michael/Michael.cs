@@ -5,6 +5,7 @@ namespace Michael;
 
 public partial class Michael
 {
+    private const int MaxPathLength = 2499;
     private readonly HttpClient _httpClient;
     private readonly Stopwatch _stopwatch;
     private HttpResponseMessage _responseMessage;
@@ -16,33 +17,47 @@ public partial class Michael
         _stopwatch = Stopwatch.StartNew();
 
         _responseMessage = MichaelUtils.MakeRequestWithCookie(_httpClient, "");
-        RunMichael("");
+        unsafe
+        {
+            var pathBuffer = stackalloc char[MaxPathLength];
+            RunMichael(pathBuffer, 0);
+        }
     }
 
-    private void RunMichael(string path)
+    private unsafe void RunMichael(char* pathBuffer, int currentDepth)
     {
         for (var i = 0; i < 4; i++)
-            if (!MichaelUtils.EndsWithChar(path, MichaelUtils.OppositeDirections[i]))
-            {
-                var moveDirection = MichaelUtils.MovePriority[i];
+        {
+            if (currentDepth > 0 && pathBuffer[currentDepth - 1] == MichaelUtils.OppositeDirections[i]) continue;
 
-                var currentMove = path + moveDirection;
-                if (Move(currentMove) == 1) RunMichael(currentMove + moveDirection);
-            }
+            var moveDirection = MichaelUtils.MovePriority[i];
+            pathBuffer[currentDepth] = moveDirection;
+            var newDepth = currentDepth + 1;
+
+            if (Move(pathBuffer, newDepth) != 1) continue;
+
+            pathBuffer[currentDepth + 1] = moveDirection;
+            RunMichael(pathBuffer, newDepth + 1);
+        }
     }
 
-    private int Move(string path)
+    private unsafe int Move(char* pathBuffer, int length)
     {
+        var path = string.Create(length, ((IntPtr)pathBuffer, length), static (span, state) =>
+        {
+            var (ptr, len) = state;
+            new ReadOnlySpan<char>((char*)ptr, len).CopyTo(span);
+        });
         _responseMessage = MichaelUtils.MakeRequestWithCookie(_httpClient, path);
 
         var messageLength = MichaelUtils.GetContentLength(_responseMessage);
-
         return messageLength switch
         {
             1730 => 0,
             1744 => 1,
+            1759 => FoundSolution(path),
             1774 => 1,
-            _ => FoundSolution(path)
+            _ => -1
         };
     }
 
@@ -60,7 +75,6 @@ public partial class Michael
             $"Execution time: {_stopwatch.Elapsed}\n" +
             $"Path to solution: {path}";
         Console.WriteLine(s);
-        Environment.Exit(0);
         return -1;
     }
 

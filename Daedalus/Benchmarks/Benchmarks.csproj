@@ -8,10 +8,15 @@
         <PublishAot>true</PublishAot>
         <RunAOTCompilation>true</RunAOTCompilation>
         <LangVersion>preview</LangVersion>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="BenchmarkDotNet" Version="0.15.8" />
+        <PackageReference Include="BenchmarkDotNet" Version="0.16.0-preview.2"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Michael\Michael.csproj"/>
     </ItemGroup>
 
 </Project>
