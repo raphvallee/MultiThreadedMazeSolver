@@ -1,1 +1,1 @@
-﻿Michael.Michael michael = new Michael.Michael();
+﻿var michael = new Michael.Michael();

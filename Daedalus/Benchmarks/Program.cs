@@ -1,14 +1,14 @@
-﻿// See https://aka.ms/new-console-template for more information
-
-using BenchmarkDotNet.Reports;
+﻿using BenchmarkDotNet.Columns;
+using BenchmarkDotNet.Configs;
 using BenchmarkDotNet.Running;
 
 namespace Benchmarks;
 
-internal static class Program
+public class Program
 {
     public static void Main(string[] args)
     {
-        Summary summary = BenchmarkRunner.Run<Benchmark>();
+        var config = DefaultConfig.Instance.AddColumnProvider(DefaultColumnProviders.Instance);
+        var summaries = BenchmarkSwitcher.FromAssembly(typeof(Program).Assembly).Run(args, config);
     }
 }

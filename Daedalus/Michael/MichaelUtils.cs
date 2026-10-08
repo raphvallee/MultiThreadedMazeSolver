@@ -4,8 +4,8 @@ namespace Michael;
 
 public static class MichaelUtils
 {
-    public static readonly string[] MovePriority = ["r", "d", "l", "u"];
-    public static readonly string[] OppositeDirections = ["l", "u", "r", "d"];
+    public static readonly char[] MovePriority = ['r', 'd', 'l', 'u'];
+    public static readonly char[] OppositeDirections = ['l', 'u', 'r', 'd'];
 
     private static string ToBase64(string content)
     {
@@ -13,11 +13,17 @@ public static class MichaelUtils
         return Convert.ToBase64String(plainTextBytes);
     }
 
-    public static async Task<HttpResponseMessage> SetPathCookie(HttpClient httpClient, string value)
+    public static HttpResponseMessage MakeRequestWithCookie(HttpClient httpClient, string value)
     {
+        // TODO find faster way to set cookie
         httpClient.DefaultRequestHeaders.Clear();
         httpClient.DefaultRequestHeaders.Add("Cookie", "path=" + ToBase64(value));
-        return await httpClient.GetAsync("");
+        return MakeRequest(httpClient);
+    }
+
+    private static HttpResponseMessage MakeRequest(HttpClient httpClient)
+    {
+        return httpClient.GetAsync("").Result;
     }
 
     public static long GetContentLength(HttpResponseMessage responseMessage)

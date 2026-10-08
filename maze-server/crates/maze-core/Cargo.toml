@@ -1,0 +1,14 @@
+[package]
+name = "maze-core"
+version = "0.1.0"
+edition = "2021"
+description = "Stateless maze engine: compile-time tables, path replay, base64 cookie codec"
+
+[dependencies]
+
+[dev-dependencies]
+criterion = "0.5"
+
+[[bench]]
+name = "core"
+harness = false

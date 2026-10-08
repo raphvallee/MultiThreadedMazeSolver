@@ -1,0 +1,24 @@
+[package]
+name = "maze-server"
+version = "0.1.0"
+edition = "2021"
+description = "Hyper-based HTTP layer for the stateless maze service"
+
+[dependencies]
+maze-core = { path = "../maze-core" }
+bytes = "1"
+http-body-util = "0.1"
+hyper = { version = "1", features = ["http1", "server"] }
+hyper-util = { version = "0.1", features = ["tokio"] }
+httpdate = { version = "1", optional = true }
+tokio = { version = "1", features = ["io-util", "macros", "net", "rt-multi-thread"] }
+
+[features]
+raw = ["dep:httpdate"]
+
+[dev-dependencies]
+criterion = "0.5"
+
+[[bench]]
+name = "handler"
+harness = false

@@ -1,28 +1,16 @@
 ﻿using BenchmarkDotNet.Attributes;
+using BenchmarkDotNet.Configs;
+using BenchmarkDotNet.Jobs;
 
 namespace Benchmarks;
 
+[SimpleJob(RuntimeMoniker.NativeAot10_0)]
+[GroupBenchmarksBy(BenchmarkLogicalGroupRule.ByParams)]
 public class Benchmark
 {
-    private readonly HttpResponseMessage _responseMessage;
-
-    public Benchmark()
-    {
-        var h = new HttpClient { BaseAddress = new Uri("https://ctf.ageei.org/daedalusv3105/move") };
-        _responseMessage = h.GetAsync("").Result;
-    }
-
     [Benchmark]
-    public long? HeaderDotContentLength() // 16ns
+    public void RunMichael()
     {
-        var s = _responseMessage.Content.Headers.ContentLength;
-        return s;
+        var michael = new Michael.Michael();
     }
-
-    // [Benchmark]
-    // public long? ReadAsStringAsyncDotLength() // 545ns
-    // {
-    //     var s = _responseMessage.Content.ReadAsStringAsync().Result.Length;
-    //     return s;
-    // }
 }
